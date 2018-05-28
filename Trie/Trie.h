@@ -16,8 +16,9 @@ class Trie
 	{
 	public:
 		TrieNode(char c = '\0', bool cw = false, TrieNode* p = nullptr) :
-			val(c), completesWord(cw), parent(p)
+			val(c), parent(p), completesWord(cw)
 		{
+			children.clear();
 		}
 
 		char val;
@@ -29,7 +30,17 @@ class Trie
 
 
 public:
-	Trie() { root = new TrieNode('\0', true); }
+	Trie()
+	{
+		root = new TrieNode('\0', true);
+	}
+
+
+	~Trie()
+	{
+		clear(root);
+	}
+
 
 	void insert(string str) const
 	{
@@ -96,13 +107,12 @@ public:
 
 private:
 
-
-	void findWords(string prefix, TrieNode* node, vector<string>& strings)
+	void findWords(string prefix, TrieNode* node, vector<string>& strings) const
 	{
 		if (node->completesWord)
 			strings.push_back(prefix);
 
-		for(TrieMapIter child = node->children.begin(); child != node->children.end(); ++child)
+		for (TrieMapIter child = node->children.begin(); child != node->children.end(); ++child)
 		{
 			findWords(prefix + child->second->val, child->second, strings);
 		}
@@ -131,6 +141,14 @@ private:
 
 	}
 
+	void clear(TrieNode* node)
+	{
+		for (TrieMapIter child = node->children.begin(); child != node->children.end(); ++child)
+		{
+			clear(child->second);
+		}
+		delete node;
+	}
 
 	TrieNode* root;
 };
