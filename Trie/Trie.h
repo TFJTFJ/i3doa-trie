@@ -68,12 +68,12 @@ public:
 	}
 
 
-	bool remove(string str) const
+	void remove(string str) const
 	{
 		TrieNode* cur = root;
 
 		unsigned int n = findPrefixEnd(str, cur);
-		if (! (n == str.length() && cur->completesWord)) return false;	// str not found
+		if (! (n == str.length() && cur->completesWord)) return;	// str not found
 		
 		// INV: str is in Trie. Remove word completion (in any case)
 		cur->completesWord = false;
@@ -90,8 +90,6 @@ public:
 			cur = cur->parent;
 			delete toDie;
 		}
-
-		return true;
 	}
 
 	void findAllWithPrefix(string prefix, vector<string>& strings) const
