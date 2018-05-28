@@ -94,7 +94,7 @@ public:
 		return true;
 	}
 
-	void findAllWithPrefix(string prefix, vector<string>& strings)
+	void findAllWithPrefix(string prefix, vector<string>& strings) const
 	{
 		strings.clear();
 		TrieNode* prefixEnd = nullptr;
@@ -141,12 +141,11 @@ private:
 
 	}
 
-	void clear(TrieNode* node)
+	void clear(TrieNode* node) const
 	{
 		for (TrieMapIter child = node->children.begin(); child != node->children.end(); ++child)
-		{
 			clear(child->second);
-		}
+
 		delete node;
 	}
 
