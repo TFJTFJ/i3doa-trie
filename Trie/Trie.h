@@ -117,7 +117,8 @@ private:
 
 	}
 
-	// findPrefixEnd: Returns pointer to the last node in the prefix of str
+	// findPrefixEnd: 
+	// Sets the parameter end to the last node in the prefix of str and returns the length of the prefix
 	unsigned int findPrefixEnd(string str, TrieNode*& end) const
 	{
 		TrieNode* cur = root;
@@ -136,7 +137,6 @@ private:
 
 		end = cur;
 		return i;
-
 	}
 
 	void clear(TrieNode* node) const
